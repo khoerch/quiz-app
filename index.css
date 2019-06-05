@@ -21,7 +21,7 @@ main {
     align-items: center;
 }
 
-.quiz-block {
+.container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,7 +32,8 @@ main {
     width: 350px;
 }
 
-.quiz-block fieldset {
+/*works with fieldset but not the .question-block class?*/
+fieldset {
     border: none;
 }
 
