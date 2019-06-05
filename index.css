@@ -8,8 +8,30 @@ header {
     margin: 25px;
 }
 
-.logo img {
+.logo {
     border: black solid 2px;
     height: 60px;
     width: 60px;
+}
+
+.begin-quiz {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wireframe {
+    border: black solid 3px;
+    background-color: gray;
+    height: 450px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
 }
