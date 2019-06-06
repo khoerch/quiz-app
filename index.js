@@ -111,8 +111,8 @@ function renderStatusBar() {
     //Upon start, create a status bar at the top of the window to monitor the status and score of the test taker
     $('.quiz-form').on('click', '.js-start-button', function(event) {
         $('.track-score').html(`
-            <p>Question ${questionCount +1} of 10</p>
-            <p>Your Score: ${userScore}</p>
+            <p class="tracker">Question ${questionCount +1} of 10</p>
+            <p class="tracker">Your Score: ${userScore}</p>
         `);
     });
 }
@@ -167,7 +167,8 @@ function renderQuestion() {
 function userIsCorrect() {
     //Generate view when answer is correct
     return `
-        <p class="start-heading">CORRECT</p>
+        <img class="quiz-logo" src="https://seeklogo.com/images/S/Spiderman_Symbol-logo-F92437175D-seeklogo.com.png" alt="Spider-Man mask">    
+        <p class="start-heading">You are CORRECT!</p>
         <button class="button js-start-button">
             <span class="button-label">Next!</span>
         </button>
@@ -177,7 +178,9 @@ function userIsCorrect() {
 function userIsWrong() {
     //Generate view when answer is wrong
     return `
-        <p class="start-heading">FALSE</p>
+        <img class="quiz-logo" src="https://dumielauxepices.net/sites/default/files/spider-clipart-spiderman-web-774249-7270913.png" alt="Web splat">
+        <p class="start-heading">FALSE!</p>
+        <p class="start-heading">The correct answer is ${TEST[questionCount].answer}</p>
         <button class="button js-start-button">
             <span class="button-label">Next!</span>
         </button>
@@ -221,7 +224,8 @@ function finalScore() {
         `;
     } else {
         return `
-            <p class="start-heading">Congratulations! You scored ${userScore} out of 10, and have saved the day!</p>
+            <img class="quiz-logo" src="http://www.freepngclipart.com/download/captain_america/77176-captain-spiderman-spider-man-ultimate-iron-america-drawing.png" alt="Spider-Man in action">
+            <p class="start-heading">Congratulations! You scored ${userScore} out of 10, and saved the day!</p>
             <p class="start-heading">Let's go read more comics!</p>
             <button class="button js-restart-button">
                 <span class="button-label">Restart</span>
