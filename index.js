@@ -1,5 +1,9 @@
 'use strict';
 
+//Establishing these as global variables so multiple functions have access. Not sure if its a good idea or not. Does this go against best practice
+let questionCount = 0;
+let userScore = 0;
+
 const TEST = [
     {
         qst: "Who was Peter Parker's first girlfriend?",
@@ -103,24 +107,33 @@ const TEST = [
     },
 ];
 
-function startQuiz() {
-    //This allows the users to click a start button to begin the quiz
-    console.log('Quiz is starting');
-    $('.container').html(`
-        <p class="start-heading">How well do you know Spider-Man?</p>
-        <button class="button js-start-button">
-            <span class="button-label">Start!</span>
-        </button>
+function renderStatusBar() {
+    //Upon start, create a status bar at the top of the window to monitor the status and score of the test taker
+    $('.quiz-form').on('click', '.js-start-button', function(event) {
+        $('.track-score').html(`
+            <p>Question ${questionCount +1} of 10</p>
+            <p>Your Score: ${userScore}</p>
         `);
+    });
+}
+
+function trackQuestionCount() {
+    //Track the current question count and render a new question or final screen depending on the value
+    $('.quiz-form').on('click', '.js-start-button', function(event) {
+        if (questionCount < 10) {
+            renderQuestion();
+        } else {
+            console.log('The quiz is over!');
+            $('.track-score').empty();
+            $('.container').html(finalScore());
+        }
+    });
 }
 
 function generateNextQuestion() {
     //Generate a new question based on the number of times a button has been clicked
-    let questionCount = 0;
     const question = TEST[questionCount];
     const listChoices = TEST[questionCount].options;
-    console.log(question.qst);
-    questionCount ++;
     return `
     <fieldset class="question-block">
         <legend>${question.qst}</legend>
@@ -144,56 +157,91 @@ function generateNextQuestion() {
 
 function renderQuestion() {
     //This will make all of the questions appear one at a time
-    $('.js-start-button').click(function(event) {
+    //$('.quiz-form').on('click', '.js-start-button', function(event) {
         console.log('A new question is being rendered');
-        const quest = generateNextQuestion();
-        $('.container').html(quest);
-    })
+        const newQuestion = generateNextQuestion();
+        $('.container').html(newQuestion);
+    //})
 }
 
-function questionIsCorrect() {
+function userIsCorrect() {
     //Generate view when answer is correct
     return `
-        <p class="">CORRECT</p>
+        <p class="start-heading">CORRECT</p>
+        <button class="button js-start-button">
+            <span class="button-label">Next!</span>
+        </button>
     `;
 }
 
-function questionIsWrong() {
+function userIsWrong() {
     //Generate view when answer is wrong
     return `
-        <p class="">FALSE</p>
+        <p class="start-heading">FALSE</p>
+        <button class="button js-start-button">
+            <span class="button-label">Next!</span>
+        </button>
     `;
 }
 
 function evaluateQuestion() {
     //This will create a pop up to tell the user if their answer was correct
     $('.quiz-form').submit(function(event) {
+        event.preventDefault();
         console.log('evaluating...');
-        const evaluate = questionIsCorrect();
-        $('.container').html(evaluate);
+        const userAnswer = $("input[name='quiz-option']:checked").val();
+        if (userAnswer == TEST[questionCount].answer) {
+            $('.container').html(userIsCorrect());
+            userScore++;
+        } else {
+            $('.container').html(userIsWrong());
+        };
+        questionCount++;
+        console.log(userScore);
     });
 }
 
-function trackQuestionStatus() {
-    //Log the question the user is currently on in a status bar
-}
-
-function trackUserScore() {
-    //Keep track of the user score depending on the questions they get right
-}
-
-function evaluateUserScore() {
-    //Take the final score and provide a range of grades at the end
+function finalScore() {
+    //This will take your final score and return a screen with your results
+    if (userScore < 4) {
+        return `
+            <p class="start-heading">Oh no! You scored ${userScore} out of 10, and the Sinister Six have escaped!</p>
+            <p class="start-heading">It might be time to read more comics!</p>
+            <button class="button js-restart-button">
+                <span class="button-label">Restart</span>
+            </button>
+        `;
+    } else if (userScore < 8) {
+        return `
+            <p class="start-heading">Not bad! You scored ${userScore} out of 10, and live to fight another day!</p>
+            <p class="start-heading">Never hurts to read more comics!</p>
+            <button class="button js-restart-button">
+                <span class="button-label">Restart</span>
+            </button>
+        `;
+    } else {
+        return `
+            <p class="start-heading">Congratulations! You scored ${userScore} out of 10, and have saved the day!</p>
+            <p class="start-heading">Let's go read more comics!</p>
+            <button class="button js-restart-button">
+                <span class="button-label">Restart</span>
+            </button>
+        `;
+    }
 }
 
 function restartQuiz() {
-    //Runs the startQuiz function again and zeros out values for question and score
+    //Reloads the page when a user clicks the restart button at the end
+    $('.quiz-form').on('click', '.js-restart-button', function() {
+        location.reload(true);
+    });
 }
 
 function handlePage() {
-    startQuiz();
-    renderQuestion();
+    renderStatusBar();
+    trackQuestionCount();
     evaluateQuestion();
+    restartQuiz();
 }
 
 $(handlePage);
