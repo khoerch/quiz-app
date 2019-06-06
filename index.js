@@ -136,7 +136,7 @@ function generateNextQuestion() {
         <input type="radio" name="quiz-option" id="quiz-option-4" value="${listChoices[3]}">
         <label for="quiz-option-4">${listChoices[3]}</label>
     </fieldset>
-    <button class="button js-submit-button">
+    <button type="submit" class="button js-submit-button">
         <span class="button-label">Submit</span>
     </button>
     `;
@@ -165,11 +165,9 @@ function questionIsWrong() {
     `;
 }
 
-//THIS IS WHERE I LEFT OFF!
-
 function evaluateQuestion() {
     //This will create a pop up to tell the user if their answer was correct
-    $('.quiz-form').on('click', '.js-submit-button', function(event) {
+    $('.quiz-form').submit(function(event) {
         console.log('evaluating...');
         const evaluate = questionIsCorrect();
         $('.container').html(evaluate);
@@ -195,6 +193,7 @@ function restartQuiz() {
 function handlePage() {
     startQuiz();
     renderQuestion();
+    evaluateQuestion();
 }
 
 $(handlePage);
