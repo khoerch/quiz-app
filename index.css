@@ -50,12 +50,8 @@ main {
     border-radius: 5%;
     box-shadow: 5px 5px 5px #242424;
     background-color: #df1f2ce7;
+    width: 320px;
     height: 450px;
-    width: 350px;
-}
-
-.container label {
-    margin: 50px;
 }
 
 .start-heading {
@@ -82,6 +78,27 @@ main {
     font-size: 1.2em;
     font-family: 'Acme';
     color: white;
+}
+
+/*Styling the labels, radio buttons, and legend*/
+.question-block {
+    width: 85%;
+    margin: 20px auto;
+}
+
+.question-block legend {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.question-block input {
+    margin: 8px 0;
+    margin-right: 10px;
+}
+
+.question-block label:hover {
+    font-weight: bold;
 }
 
 /*works with fieldset but not the .question-block class?*/

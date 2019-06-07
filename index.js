@@ -137,19 +137,19 @@ function generateNextQuestion() {
     return `
     <fieldset class="question-block">
         <legend>${question.qst}</legend>
-        <input type="radio" name="quiz-option" id="quiz-option-1" value="${listChoices[0]}">
+        <input type="radio" name="quiz-option" id="quiz-option-1" value="${listChoices[0]}" aria-checked="false">
         <label for="quiz-option-1">${listChoices[0]}</label>
         <br>
-        <input type="radio" name="quiz-option" id="quiz-option-2" value="${listChoices[1]}">
+        <input type="radio" name="quiz-option" id="quiz-option-2" value="${listChoices[1]}" aria-checked="false">
         <label for="quiz-option-2">${listChoices[1]}</label>
         <br>
-        <input type="radio" name="quiz-option" id="quiz-option-3" value="${listChoices[2]}">
+        <input type="radio" name="quiz-option" id="quiz-option-3" value="${listChoices[2]}" aria-checked="false">
         <label for="quiz-option-3">${listChoices[2]}</label>
         <br>
-        <input type="radio" name="quiz-option" id="quiz-option-4" value="${listChoices[3]}">
+        <input type="radio" name="quiz-option" id="quiz-option-4" value="${listChoices[3]}" aria-checked="false">
         <label for="quiz-option-4">${listChoices[3]}</label>
     </fieldset>
-    <button type="submit" class="button js-submit-button">
+    <button type="submit" class="button js-submit-button" role="button">
         <span class="button-label">Submit</span>
     </button>
     `;
@@ -169,8 +169,8 @@ function userIsCorrect() {
     return `
         <img class="quiz-logo" src="https://seeklogo.com/images/S/Spiderman_Symbol-logo-F92437175D-seeklogo.com.png" alt="Spider-Man mask">    
         <p class="start-heading">You are CORRECT!</p>
-        <button class="button js-start-button">
-            <span class="button-label">Next!</span>
+        <button class="button js-start-button" role="button">
+            <span class="button-label" >Next!</span>
         </button>
     `;
 }
@@ -181,7 +181,7 @@ function userIsWrong() {
         <img class="quiz-logo" src="https://dumielauxepices.net/sites/default/files/spider-clipart-spiderman-web-774249-7270913.png" alt="Web splat">
         <p class="start-heading">FALSE!</p>
         <p class="start-heading">The correct answer is ${TEST[questionCount].answer}</p>
-        <button class="button js-start-button">
+        <button class="button js-start-button" role="button">
             <span class="button-label">Next!</span>
         </button>
     `;
@@ -210,7 +210,7 @@ function finalScore() {
         return `
             <p class="start-heading">Oh no! You scored ${userScore} out of 10, and the Sinister Six have escaped!</p>
             <p class="start-heading">It might be time to read more comics!</p>
-            <button class="button js-restart-button">
+            <button class="button js-restart-button" role="button">
                 <span class="button-label">Restart</span>
             </button>
         `;
@@ -218,7 +218,7 @@ function finalScore() {
         return `
             <p class="start-heading">Not bad! You scored ${userScore} out of 10, and live to fight another day!</p>
             <p class="start-heading">Never hurts to read more comics!</p>
-            <button class="button js-restart-button">
+            <button class="button js-restart-button" role="button">
                 <span class="button-label">Restart</span>
             </button>
         `;
@@ -227,7 +227,7 @@ function finalScore() {
             <img class="quiz-logo" src="http://www.freepngclipart.com/download/captain_america/77176-captain-spiderman-spider-man-ultimate-iron-america-drawing.png" alt="Spider-Man in action">
             <p class="start-heading">Congratulations! You scored ${userScore} out of 10, and saved the day!</p>
             <p class="start-heading">Let's go read more comics!</p>
-            <button class="button js-restart-button">
+            <button class="button js-restart-button" role="button">
                 <span class="button-label">Restart</span>
             </button>
         `;
